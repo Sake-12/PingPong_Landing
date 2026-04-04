@@ -1,0 +1,182 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+@import "tailwindcss";
+
+@plugin "tailwindcss-animate";
+
+@theme {
+  --font-sans: "Pretendard", "Inter", sans-serif;
+  --font-heading: "Pretendard", "Apple SD Gothic Neo", sans-serif;
+  --font-freesentation: "Pretendard", sans-serif;
+  /* Mapping code021 fonts to Pretendard for now */
+  --font-wanted-sans: "Pretendard", sans-serif;
+  /* Mapping code021 fonts to Pretendard for now */
+
+  --text-display: 5rem;
+  --text-section-title: 3rem;
+  --text-subtitle: 1.5rem;
+  --text-body-large: 1.125rem;
+  --text-body: 1rem;
+
+
+
+  --color-primary: #1AFFD1;
+  /* Neon Mint from code021 Screen2 */
+  --color-secondary: #A0FF1B;
+  /* Neon Lime from code021 Screen2 */
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #AAAAAA;
+  --color-background-black: #000000;
+  --color-background-dark: #111111;
+}
+
+/* ── Root font-size scaling ──
+   Screen2 animations rely on rem-based sizing.
+   At ≤1050px: 1rem = 12px (minimum). */
+@media screen and (max-width: 1050px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    font-size: max(1rem, 14px);
+    color: var(--color-text-primary);
+    background-color: var(--color-background-black);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: #FFFFFF;
+  }
+}
+
+/* ── Enforce 14px minimum on text utilities ──
+   Placed OUTSIDE @layer so they beat Tailwind utilities.
+   Only applies when root font-size is scaled down (≤1050px).
+   Screen2's inline styles (e.g. style={{ fontSize: '2rem' }}) are unaffected
+   because these selectors only target class-based font-size. */
+@media screen and (max-width: 1050px) {
+
+  .text-xs,
+  .text-sm {
+    font-size: 14px !important;
+  }
+
+  .text-base {
+    font-size: max(1rem, 14px) !important;
+  }
+
+  .text-lg {
+    font-size: max(1.125rem, 14px) !important;
+  }
+}
+
+/* Custom scrollbar hiding if needed */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Scroll Snap Helpers */
+.snap-always {
+  scroll-snap-stop: always;
+}
+
+/* Used by Screen2: when y reaches last step, remove snap so user scrolls freely */
+.\!snap-none {
+  scroll-snap-type: none !important;
+  -webkit-scroll-snap-type: none !important;
+}
+
+.section {
+  height: 100vh;
+  /* Fallback */
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+/* ── Typography utilities ──
+   Scaled to match litmers.com reference:
+   Desktop(1440) → Tablet(768) → Mobile(375) → Fold(280)
+   Screen2 components don't use these utilities — they use raw rem. */
+@layer utilities {
+
+  /* Hero headline: 64px → 48px → 32px → 28px */
+  .typo-display {
+    font-size: clamp(28px, 4.5vw, 64px);
+    @apply font-bold leading-tight;
+  }
+
+  /* Section h2: 48px → 36px → 28px → 24px */
+  .typo-section-title {
+    font-size: clamp(24px, 3.5vw, 48px);
+    @apply font-bold;
+  }
+
+  /* Subtitle / label: 24px → 20px → 16px → 14px */
+  .typo-subtitle {
+    font-size: clamp(14px, 1.8vw, 24px);
+    @apply font-semibold;
+  }
+
+  /* Card title: 24px → 20px → 16px → 16px */
+  .typo-card-title {
+    font-size: clamp(16px, 1.6vw, 24px);
+    @apply font-bold;
+  }
+
+  /* Body large: 20px → 18px → 16px → 15px */
+  .typo-body-large {
+    font-size: clamp(15px, 1.4vw, 20px);
+    @apply leading-relaxed;
+  }
+
+  /* Body: 18px → 16px → 15px → 14px */
+  .typo-body {
+    font-size: clamp(14px, 1.2vw, 18px);
+    @apply leading-relaxed;
+  }
+
+  /* Caption: 14px fixed */
+  .typo-caption {
+    font-size: 14px;
+    @apply text-white/80;
+  }
+
+  /* Footer: 14px fixed */
+  .typo-footer {
+    font-size: 14px;
+  }
+}
+
+/* ── Tablet optimisation (768–1024px) ──
+   Bridge the gap between mobile and desktop
+   so sections don't look too stretched on iPads. */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .typo-display {
+    font-size: clamp(32px, 5vw, 48px);
+  }
+
+  .typo-section-title {
+    font-size: clamp(26px, 4vw, 36px);
+  }
+
+  .typo-subtitle {
+    font-size: clamp(16px, 2.2vw, 20px);
+  }
+
+  .typo-body-large {
+    font-size: clamp(15px, 1.8vw, 18px);
+  }
+}
