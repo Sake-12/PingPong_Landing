@@ -12,7 +12,7 @@ function ProcessCard({ icon, title, description }: { icon: string; title: string
   return (
     <div className="relative w-full lg:w-[213px] h-[280px] shrink-0 rounded-[24px] border border-white/[0.08] bg-white/[0.03] overflow-hidden px-[21px] pt-[33px] hover:bg-white/[0.05] transition-colors duration-500 backdrop-blur-sm">
       <div className="flex flex-col gap-[20px]">
-        <Image src={icon} alt="" width={36} height={36} className="w-[36px] h-[36px]" />
+        <Image src={icon} alt="" width={72} height={72} className="w-[clamp(36px,calc(93px-5.55vw),72px)] h-[clamp(36px,calc(93px-5.55vw),72px)]" />
         <div className="flex flex-col gap-[16px]">
           <h3 className="text-[20px] font-bold leading-[28px] bg-gradient-to-b from-[#1AFFD1] to-[#A0FF1B] bg-clip-text text-transparent whitespace-nowrap">
             {title}
@@ -86,7 +86,7 @@ function CultureCardLarge({ title, description, icon }: { title: string; descrip
             {description}
           </p>
         </div>
-        <Image src={icon} alt="" width={64} height={64} className="w-[64px] h-[64px] group-hover:scale-110 transition-transform duration-700 ease-out" />
+        <Image src={icon} alt="" width={128} height={128} className="w-[clamp(64px,calc(165px-9.86vw),128px)] h-[clamp(64px,calc(165px-9.86vw),128px)]" />
       </div>
     </div>
   );
